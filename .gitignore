@@ -1,3 +1,18 @@
+# Ignore build artifacts
+build/
+venv/
+
+#Ignore environment-specific files
+.env
+.env.local
+.env.*.local
+
+#Ignore log files
+*.log
+
+#Ignore editor-specific files
+.vscode/
+
 # Prerequisites
 *.d
 
