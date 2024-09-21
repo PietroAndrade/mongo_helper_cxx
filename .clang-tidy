@@ -1,0 +1,127 @@
+---
+
+Checks: "*,\
+-altera-*,\
+-clang-analyzer-*,\
+-fuchsia-*,\
+google-*,\
+-google-build-using-namespace,\
+-google-readability-namespace-comments,\
+-google-runtime-references,\
+-llvmlibc*,\
+llvm-*,\
+-llvm-include-order,\
+-llvm-namespace-comment,\
+-llvm-header-guard, \
+-modernize-concat-nested-namespaces,\
+-modernize-use-nodiscard,\
+-modernize-use-trailing-return-type,\
+misc-*,\
+-misc-no-recursion, \
+-misc-non-private-member-variables-in-classes, \
+-misc-definitions-in-headers, \
+abseil-*,\
+-abseil-string-find-str-contains,\
+bugprone-*,\
+-bugprone-easily-swappable-parameters,\
+cppcoreguidelines-*, \
+-cppcoreguidelines-avoid-non-const-global-variables,\
+-cppcoreguidelines-special-member-functions, \
+-cppcoreguidelines-non-private-member-variables-in-classes, \
+readability-*, \
+-readability-convert-member-functions-to-static, \
+-readability-use-anyofallof, \
+hicpp-*, \
+-hicpp-special-member-functions, \
+-hicpp-non-private-member-variables-in-classes, \ 
+-altera-struct-pack-align, \ 
+-cppcoreguidelines-pro-type-const-cast, \ 
+-cppcoreguidelines-pro-bounds-pointer-arithmetic, \ 
+-bugprone-exception-escape, \ 
+llvmlibc-*, \
+-llvmlibc-restrict-system-libc-headers, \ 
+-llvmlibc-implementation-in-namespace, \ 
+-llvmlibc-callee-namespace, \ 
+-modernize-avoid-bind, \
+-llvmlibc-restrict-system-libc-headers, \
+-clang-diagnostic-error, \
+"
+HeaderFilterRegex: '.*'
+
+CheckOptions:
+  # Permit if(ptr), don't ask for if(ptr != nullptr)
+  - key: readability-implicit-bool-cast.AllowConditionalPointerCasts
+    value: 1
+  - key: readability-implicit-bool-conversion.AllowPointerConditions
+    value: 1
+  # Permit if(number), don't ask for if(number != 0)
+  - key: readability-implicit-bool-conversion.AllowIntegerConditions
+    value: 1
+  # Namespaces are lower case. Short and concise is good.
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+
+  # Things that are set in stone at compile time are CamelCase.
+  # This includes types, enum's values, and constexprs.
+  # NOTE: constexpr functions may still take arguments which change their behaviour/result,
+  #       thus they are not set in stone at compile time the way other things are.
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.TemplateParameterCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypeAliasCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypedefCase
+    value: CamelCase
+  - key: readability-identifier-naming.UnionCase
+    value: CamelCase
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: CamelCase
+  - key: readability-identifier-naming.MemberCase
+    value: camelBack
+  - key: readability-identifier-naming.ProtectedMemberCase
+    value: camelBack
+  - key: readability-identifier-naming.PrivateMemberCase
+    value: camelBack
+  - key: readability-identifier-naming.ClassMemberCase
+    value: camelBack
+  - key: readability-identifier-naming.ConstantMemberCase
+    value: camelBack
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.ConstexprFunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.GlobalFunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.ParameterCase
+    value: camelBack
+  - key: readability-identifier-naming.VariableCase
+    value: camelBack
+  - key: readability-identifier-naming.GlobalVariableCase
+    value: camelBack
+  - key: readability-identifier-naming.StaticVariableCase
+    value: camelBack
+  # Prefixes indicate scope.  g == global, s == static, m == member. Variables with local scope have no prefix.
+  # Exception: public member variables have no prefix (eg: for structs)
+  - key: readability-identifier-naming.GlobalVariablePrefix
+    value: g_
+  - key: readability-identifier-naming.ClassMemberPrefix
+    value: s_
+  - key: readability-identifier-naming.StaticVariablePrefix
+    value: s_
+  - key: readability-identifier-naming.ProtectedMemberPrefix
+    value: m_
+  - key: readability-identifier-naming.PrivateMemberPrefix
+    value: m_
+  - key: readability-identifier-naming.ConstantMemberPrefix
+    value: m_
+  # typedefs should be replaced with C++11's 'using' keyword.
+  - key: readability-identifier-naming.TypedefPrefix
+    value: use_using_
+...
